@@ -23,7 +23,7 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long categoryId;
 
-	@Pattern(regexp = "^[a-zA-Z]*$")
+	@Pattern(regexp = "^[a-zA-Z ]*$")
 	@Size(min = 1, max = 20, message = "Please enter atleast one character !")
 	private String categoryName;
 
