@@ -17,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 import com.xoriant.consumer.exception.ElementNotFoundException;
 import com.xoriant.consumer.model.Category;
 import com.xoriant.consumer.repo.CategoryRepo;
@@ -76,6 +75,15 @@ class CategoryServiceImplTest {
 		Optional<Category> existingCategory = Optional.of(category1);
 		when(categoryRepo.findById(categoryId)).thenReturn(existingCategory);
 		assertEquals(existingCategory, categoryServiceImpl.findById(categoryId));
+	}
+
+	@Test
+	void findById_throwsException_ifCategoryIdIsNotPresent() {
+		long category_Id = 501;
+		doThrow(ElementNotFoundException.class).when(categoryRepo).findById(category_Id);
+		assertThrows(ElementNotFoundException.class, () -> {
+			categoryServiceImpl.findById(category_Id);
+		});
 	}
 
 	@Test
